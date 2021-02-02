@@ -77,9 +77,23 @@ parse_cta_oper <- function(arquivo_txt){
   )
 
   df$codigo_receita <- gsub('^0{0,}', '', df$codigo_receita)
-  df$codigo_receita <- gsub('^9{0,1}', '', df$codigo_receita)
   df$codigo_receita <- str_pad(df$codigo_receita, 20, c('right'), pad = '0')
-  df$codigo_receita <- sprintf(
+  eh_deducao <- startsWith(df$codigo_receita, "9")
+  df <- cbind(df, eh_deducao)
+  df$codigo_receita <- ifelse(df$eh_deducao == TRUE, sprintf(
+    "%s.%s.%s.%s.%s.%s.%s.%s.%s.%s.%s",
+    str_sub(df$codigo_receita, start = 1, end = 1),
+    str_sub(df$codigo_receita, start = 2, end = 2),
+    str_sub(df$codigo_receita, start = 3, end = 3),
+    str_sub(df$codigo_receita, start = 4, end = 4),
+    str_sub(df$codigo_receita, start = 5, end = 5),
+    str_sub(df$codigo_receita, start = 6, end = 7),
+    str_sub(df$codigo_receita, start = 8, end = 8),
+    str_sub(df$codigo_receita, start = 9, end = 9),
+    str_sub(df$codigo_receita, start = 10, end = 11),
+    str_sub(df$codigo_receita, start = 12, end = 13),
+    str_sub(df$codigo_receita, start = 14, end = 15)
+  ), sprintf(
     "%s.%s.%s.%s.%s.%s.%s.%s.%s.%s",
     str_sub(df$codigo_receita, start = 1, end = 1),
     str_sub(df$codigo_receita, start = 2, end = 2),
@@ -91,7 +105,8 @@ parse_cta_oper <- function(arquivo_txt){
     str_sub(df$codigo_receita, start = 9, end = 10),
     str_sub(df$codigo_receita, start = 11, end = 12),
     str_sub(df$codigo_receita, start = 13, end = 14)
-  )
+  ))
+  df$eh_deducao <- NULL
 
   df$data_operacao <- as.Date(df$data_operacao, tryFormats = c("%d%m%Y"))
 

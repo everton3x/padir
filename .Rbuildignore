@@ -1,3 +1,4 @@
 ^padir\.Rproj$
 ^\.Rproj\.user$
 test.R
+^CRAN-RELEASE$
