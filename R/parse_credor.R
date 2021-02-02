@@ -1,9 +1,9 @@
-#' @title Converte UNIORCAM.TXT para um Data Frame.
-#' @name parse_uniorcam
+#' @title Converte CREDOR.TXT para um Data Frame.
+#' @name parse_credor
 #'
 #' @description Converte os dados gerados para importação pelo SIAPC/PAD do TCE/RS em um Data Frame do R.
 #'
-#' @param arquivo_txt O caminho para o arquivo UNIORCAM.TXT
+#' @param arquivo_txt O caminho para o arquivo CREDOR.TXT
 #' @return Um Data Frame com os dados.
 #'
 #' @author Everton da Rosa
@@ -11,26 +11,40 @@
 #' @export
 #' @import readr
 #' @import stringr
-parse_uniorcam <- function(arquivo_txt){
+parse_credor <- function(arquivo_txt){
 
   # Importa o TXT
   df <- read_fwf(
     arquivo_txt,
     fwf_cols(
-      exercicio = 4,
-      codigo_orgao = 2,
-      codigo_uniorcam = 2,
-      nome_uniorcam = 80,
-      identificador_uniorcam = 2,
-      cnpj_uniorcam = 14
+      codigo_credor = 10,
+      nome_credor = 60,
+      cnpj_cpf = 14,
+      inscricao_estadual = 15,
+      inscricao_municipal = 15,
+      endereco = 50,
+      cidade = 30,
+      uf = 2,
+      cep = 8,
+      fone = 15,
+      fax = 15,
+      tipo_credor = 2,
+      tipo_pessoa = 2
     ),
     col_types = cols(
-      exercicio = col_character(),
-      codigo_orgao = col_character(),
-      codigo_uniorcam = col_character(),
-      nome_uniorcam = col_character(),
-      identificador_uniorcam = col_character(),
-      cnpj_uniorcam = col_character()
+      codigo_credor = col_character(),
+      nome_credor = col_character(),
+      cnpj_cpf = col_character(),
+      inscricao_estadual = col_character(),
+      inscricao_municipal = col_character(),
+      endereco = col_character(),
+      cidade = col_character(),
+      uf = col_character(),
+      cep = col_character(),
+      fone = col_character(),
+      fax = col_character(),
+      tipo_credor = col_character(),
+      tipo_pessoa = col_character()
     ),
     skip = 1,
     trim_ws = T,
@@ -39,7 +53,7 @@ parse_uniorcam <- function(arquivo_txt){
   )
 
   # Remove a linha do FINALIZADOR
-  df <- subset(df, df$exercicio != 'FINA')
+  df <- subset(df, grepl("^[^FINALIZADOR]", df$codigo_credor))
 
   # Converte as colunas de moeda
 
@@ -48,7 +62,9 @@ parse_uniorcam <- function(arquivo_txt){
 
 
   # Formata campos
-  df$nome_uniorcam <- str_trim(df$nome_uniorcam)
+  df$nome_credor <- str_trim(df$nome_credor)
+  df$endereco <- str_trim(df$endereco)
+  df$cidade <- str_trim(df$cidade)
 
   # Acrescenta os dados do cabeçalho
   cabecalho <- scan(arquivo_txt, nlines = 1, what = 'character', quiet = T)

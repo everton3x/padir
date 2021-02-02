@@ -1,9 +1,9 @@
-#' @title Converte UNIORCAM.TXT para um Data Frame.
-#' @name parse_uniorcam
+#' @title Converte RECURSO.TXT para um Data Frame.
+#' @name parse_recurso
 #'
 #' @description Converte os dados gerados para importação pelo SIAPC/PAD do TCE/RS em um Data Frame do R.
 #'
-#' @param arquivo_txt O caminho para o arquivo UNIORCAM.TXT
+#' @param arquivo_txt O caminho para o arquivo RECURSO.TXT
 #' @return Um Data Frame com os dados.
 #'
 #' @author Everton da Rosa
@@ -11,26 +11,20 @@
 #' @export
 #' @import readr
 #' @import stringr
-parse_uniorcam <- function(arquivo_txt){
+parse_recurso <- function(arquivo_txt){
 
   # Importa o TXT
   df <- read_fwf(
     arquivo_txt,
     fwf_cols(
-      exercicio = 4,
-      codigo_orgao = 2,
-      codigo_uniorcam = 2,
-      nome_uniorcam = 80,
-      identificador_uniorcam = 2,
-      cnpj_uniorcam = 14
+      codigo_recurso_vinculado = 4,
+      nome_recurso_vinculado = 80,
+      finalidade_recurso_vinculado = 160
     ),
     col_types = cols(
-      exercicio = col_character(),
-      codigo_orgao = col_character(),
-      codigo_uniorcam = col_character(),
-      nome_uniorcam = col_character(),
-      identificador_uniorcam = col_character(),
-      cnpj_uniorcam = col_character()
+      codigo_recurso_vinculado = col_character(),
+      nome_recurso_vinculado = col_character(),
+      finalidade_recurso_vinculado = col_character()
     ),
     skip = 1,
     trim_ws = T,
@@ -39,7 +33,7 @@ parse_uniorcam <- function(arquivo_txt){
   )
 
   # Remove a linha do FINALIZADOR
-  df <- subset(df, df$exercicio != 'FINA')
+  df <- subset(df, df$codigo_recurso_vinculado != 'FINA')
 
   # Converte as colunas de moeda
 
@@ -48,7 +42,8 @@ parse_uniorcam <- function(arquivo_txt){
 
 
   # Formata campos
-  df$nome_uniorcam <- str_trim(df$nome_uniorcam)
+  df$nome_recurso_vinculado <- str_trim(df$nome_recurso_vinculado)
+  df$finalidade_recurso_vinculado <- str_trim(df$finalidade_recurso_vinculado)
 
   # Acrescenta os dados do cabeçalho
   cabecalho <- scan(arquivo_txt, nlines = 1, what = 'character', quiet = T)
