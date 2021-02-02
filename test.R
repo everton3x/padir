@@ -7,6 +7,11 @@ devtools::load_all()
 # empenho
 # write.csv2(empenho, 'empenho.csv')
 
-liquidac <- parse_liquidac("C:/Users/Everton/OneDrive/Prefeitura/2020/PAD/2020-12/pm/MES12/LIQUIDAC.TXT")
-liquidac
-write.csv2(liquidac, 'liquidac.csv')
+# liquidac <- parse_liquidac("C:/Users/Everton/OneDrive/Prefeitura/2020/PAD/2020-12/pm/MES12/LIQUIDAC.TXT")
+# liquidac
+# write.csv2(liquidac, 'liquidac.csv')
+
+pagament <- parse_pagament("C:/Users/Everton/OneDrive/Prefeitura/2020/PAD/2020-12/pm/MES12/PAGAMENT.TXT")
+pagament
+write.csv2(pagament, 'pagament.csv')
+
