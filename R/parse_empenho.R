@@ -1,5 +1,5 @@
 #' @title Converte EMPENHO.TXT para um Data Frame.
-#' @name parse_bal_desp
+#' @name parse_empenho
 #'
 #' @description Converte os dados gerados para importação pelo SIAPC/PAD do TCE/RS em um Data Frame do R.
 #'
