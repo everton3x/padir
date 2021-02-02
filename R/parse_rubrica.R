@@ -45,7 +45,7 @@ parse_rubrica <- function(arquivo_txt){
   # Acrescenta colunas extras
 
   # Formata campos
-  df$especificacao_rubrica <- str_trim(especificacao_rubrica)
+  df$especificacao_rubrica <- str_trim(df$especificacao_rubrica)
 
   df$rubrica <- gsub('^0{0,}', '', df$rubrica)
   df$rubrica <- str_pad(df$rubrica, 15, c('right'), pad = '0')
