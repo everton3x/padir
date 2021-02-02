@@ -69,6 +69,7 @@ parse_liquidac <- function(arquivo_txt){
 
   # Formata campos
   df$data_liquidacao <- as.Date(df$data_liquidacao, tryFormats = c("%d%m%Y"))
+  df$historico_liquidacao <- str_trim(df$historico_liquidacao)
 
   # Acrescenta os dados do cabeçalho
   cabecalho <- scan(arquivo_txt, nlines = 1, what = 'character', quiet = T)

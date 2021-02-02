@@ -58,6 +58,7 @@ parse_brec_ant <- function(arquivo_txt){
   # Acrescenta colunas extras
 
   # Formata campos
+  df$especificacao_receita <- str_trim(df$especificacao_receita)
 
   df$codigo_receita <- gsub('^0{0,}', '', df$codigo_receita)
   df$codigo_receita <- gsub('^9{0,1}', '', df$codigo_receita)

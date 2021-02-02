@@ -76,6 +76,7 @@ parse_bal_ver <- function(arquivo_txt){
   # Acrescenta colunas extras
 
   # Formata campos
+  df$especificacao_conta_contabil <- str_trim(df$especificacao_conta_contabil)
   df$conta_contabil <- gsub('^0{0,}', '', df$conta_contabil)
   df$conta_contabil <- str_pad(df$conta_contabil, 20, c('right'), pad = '0')
   df$conta_contabil <- sprintf(

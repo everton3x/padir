@@ -68,6 +68,8 @@ parse_pagament <- function(arquivo_txt){
   # Formata campos
   df$data_pagamento <- as.Date(df$data_pagamento, tryFormats = c("%d%m%Y"))
 
+  df$historico_pagamento <- str_trim(df$historico_pagamento)
+
   df$conta_contabil_debito <- gsub('^0{0,}', '', df$conta_contabil_debito)
   df$conta_contabil_debito <- str_pad(df$conta_contabil_debito, 20, c('right'), pad = '0')
   df$conta_contabil_debito <- sprintf(

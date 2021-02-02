@@ -108,6 +108,8 @@ parse_empenho <- function(arquivo_txt){
 
   df$data_empenho <- as.Date(df$data_empenho, tryFormats = c("%d%m%Y"))
 
+  df$historico_empenho <- str_trim(df$historico_empenho)
+
   # Acrescenta os dados do cabeçalho
   cabecalho <- scan(arquivo_txt, nlines = 1, what = 'character', quiet = T)
   cabecalho <- paste(cabecalho, collapse = " ")
