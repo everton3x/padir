@@ -3,6 +3,7 @@
 export(build_liquidacao)
 export(build_moviemp)
 export(build_pagamento)
+export(build_rp)
 export(parse_bal_desp)
 export(parse_bal_rec)
 export(parse_bal_ver)
