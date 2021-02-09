@@ -1,6 +1,6 @@
 Package: padir
 Title: Conversor de layout do SIAPC/PAD do TCE/RS para Data Frame da linguagem R
-Version: 0.2.0
+Version: 0.4.0
 Authors@R: 
     person(given = "Everton",
            family = "da Rosa",
