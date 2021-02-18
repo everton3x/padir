@@ -40,7 +40,10 @@ parse_bal_desp <- function(arquivo_txt){
       valor_limitado = 13,
       valor_recomposto = 13,
       previsao_termino = 13,
-      complemento_recurso_vinculado = 4
+      complemento_recurso_vinculado = 4,
+      transferencia = 13,
+      transposicao = 13,
+      remanejamento = 13
     ),
     col_types = cols(
       orgao = col_character(),
@@ -66,7 +69,10 @@ parse_bal_desp <- function(arquivo_txt){
       valor_limitado = col_number(),
       valor_recomposto = col_number(),
       previsao_termino = col_number(),
-      complemento_recurso_vinculado = col_character()
+      complemento_recurso_vinculado = col_character(),
+      transferencia = col_number(),
+      transposicao = col_number(),
+      remanejamento = col_number()
     ),
     skip = 1,
     trim_ws = T,
@@ -92,6 +98,9 @@ parse_bal_desp <- function(arquivo_txt){
   df$valor_limitado <- round(df$valor_limitado / 100, digits = 2)
   df$valor_recomposto <- round(df$valor_recomposto / 100, digits = 2)
   df$previsao_termino <- round(df$previsao_termino / 100, digits = 2)
+  df$transferencia <- round(df$transferencia / 100, digits = 2)
+  df$transposicao <- round(df$transposicao / 100, digits = 2)
+  df$remanejamento <- round(df$remanejamento / 100, digits = 2)
 
   # Acrescenta colunas extras
   df$dotacao_atualizada <- df$dotacao_inicial + df$atualizacao_monetaria + df$creditos_suplementares + df$creditos_especiais + df$creditos_extraordinarios - df$reducao_dotacao + df$suplementacao_recurso_vinculado - df$reducao_recurso_vinculado
