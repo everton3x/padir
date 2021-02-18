@@ -24,7 +24,11 @@ parse_decreto <- function(arquivo_txt){
       valor_adicional = 13,
       valor_reducao = 13,
       tipo_adicional = 1,
-      origem_recurso = 1
+      origem_recurso = 1,
+      alteracao_orcamentaria = 1,
+      valor_alteracao_orcamentaria = 13,
+      data_reabertura_credito_adicional = 8,
+      valor_saldo_reaberto = 13
     ),
     col_types = cols(
       numero_lei = col_character(),
@@ -34,7 +38,11 @@ parse_decreto <- function(arquivo_txt){
       valor_adicional = col_number(),
       valor_reducao = col_number(),
       tipo_adicional = col_character(),
-      origem_recurso = col_character()
+      origem_recurso = col_character(),
+      alteracao_orcamentaria = col_character(),
+      valor_alteracao_orcamentaria = col_number(),
+      data_reabertura_credito_adicional = col_character(),
+      valor_saldo_reaberto = col_number()
     ),
     skip = 1,
     trim_ws = T,
@@ -48,12 +56,15 @@ parse_decreto <- function(arquivo_txt){
   # Converte as colunas de moeda
   df$valor_adicional <- round(as.numeric(df$valor_adicional) / 100, digits = 2)
   df$valor_reducao <- round(as.numeric(df$valor_reducao) / 100, digits = 2)
+  df$valor_alteracao_orcamentaria <- round(as.numeric(df$valor_alteracao_orcamentaria) / 100, digits = 2)
+  df$valor_saldo_reaberto <- round(as.numeric(df$valor_saldo_reaberto) / 100, digits = 2)
 
   # Acrescenta colunas extras
 
   # Formata campos
   df$data_lei <- as.Date(df$data_lei, tryFormats = c("%d%m%Y"))
   df$data_decreto <- as.Date(df$data_decreto, tryFormats = c("%d%m%Y"))
+  df$data_reabertura_credito_adicional <- as.Date(df$data_reabertura_credito_adicional, tryFormats = c("%d%m%Y"), optional = T)
 
   # Acrescenta os dados do cabeçalho
   cabecalho <- scan(arquivo_txt, nlines = 1, what = 'character', quiet = T)
